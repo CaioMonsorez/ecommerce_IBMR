@@ -6,19 +6,30 @@ function App() {
     <div className="App">
       <Content />
       <header className="App-header">
-      <div className='elementH'>
-Bonés
+        <div className='elementH'>
+          Home
         </div>
         <div className='elementH'>
-Camisas
+          Bonés
         </div>
         <div className='elementH'>
-Calças
+          Camisas
         </div>
         <div className='elementH'>
-Sapatos
+          Calças
+        </div>
+        <div className='elementH'>
+          Sapatos
         </div>
       </header>
+      <body className='container'>
+        <div>
+          Produto
+        </div>
+        <div>
+          <img />
+        </div>
+      </body>
     </div>
   );
 }
