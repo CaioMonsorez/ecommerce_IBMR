@@ -1,3 +1,11 @@
+.Header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+}
+
 .App {
   text-align: center;
 }
