@@ -1,36 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <div className="Header">
-        <div>
+      <header className="App-header">
+      <div className='elementH'>
 Bonés
         </div>
-        <div>
+        <div className='elementH'>
 Camisas
         </div>
-        <div>
+        <div className='elementH'>
 Calças
         </div>
-        <div>
+        <div className='elementH'>
 Sapatos
         </div>
-      </div>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Batata Palha com Aspargos!
-        </p>
-        <a
-          className="App-link"
-          href="https://www.insiderstore.com.br"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Site Insider a qual vamos nos basear
-        </a>
       </header>
     </div>
   );
