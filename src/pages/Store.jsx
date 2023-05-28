@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BsFillCartPlusFill, BsFillCartCheckFill } from 'react-icons/bs';
-
+import { getItem, setItem } from '../services/LocalStorage';
 export const Store = () => {
   const [data, setData] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(getItem('carrinhoyt') || []);
 
   const fetchApi = async () => {
     const url = 'https://api.mercadolibre.com/sites/MLB/search?q=iphone';
@@ -22,8 +22,10 @@ export const Store = () => {
     if (element) {
       const arrFilter = cart.filter((e) => e.id !== obj.id);
       setCart(arrFilter);
+      setItem('carrinhoyt',arrFilter)
     } else {
       setCart([...cart, obj]);
+      setItem('carrinhoyt',[...cart,obj])
     }
   };
 
