@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BsFillCartPlusFill, BsFillCartCheckFill } from 'react-icons/bs';
 import { getItem, setItem } from '../services/LocalStorageFuncs';
-import { Link } from 'react-router-dom';
 import { ProductsArea } from '../css/style';
-import { Cabecalho  } from '../components/Header';
+import { Cabecalho} from '../components/Header';
 
 export const Store = () => {
 
