@@ -4,6 +4,7 @@ import { getItem, setItem } from '../services/LocalStorageFuncs';
 import { ProductsArea } from '../css/style';
 import { Cabecalho} from '../components/Header';
 
+
 export const Store = () => {
 
   const [data, setData] = useState([]);
