@@ -4,6 +4,7 @@ import { getItem, setItem } from '../services/LocalStorageFuncs';
 import { ProductsArea } from '../css/style';
 import { Cabecalho} from '../components/Header';
 
+
 export const Store = () => {
 
   const [data, setData] = useState([]);
@@ -11,7 +12,7 @@ export const Store = () => {
 
   useEffect(() => {
   const fetchApi = async () => {
-    const url = 'https://api.mercadolibre.com/sites/MLB/search?q=iphone';
+    const url = 'http://localhost:3030';
     const response = await fetch(url);
     const objJson = await response.json();
     setData(objJson.results)
