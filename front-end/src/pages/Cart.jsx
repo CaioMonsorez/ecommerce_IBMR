@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { getItem, setItem } from '../services/LocalStorageFuncs';
 import { BsFillCartDashFill } from 'react-icons/bs';
 import { ProductsArea } from '../css/style'
-import { Cabecalho  } from '../components/Header';
+import { Cabecalho  } from '../components/Header/Header';
 
 export const Cart = ()=> {
     const[data,setData] = useState(getItem('carrinhoYt') ||[])
