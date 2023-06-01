@@ -23,5 +23,12 @@ export const ProductsArea =styled.div`
         background:transparent;
         border:none;
         color: #B80F0A;
+        transition: all 0.5s;
+        cursor: pointer;
     }
+
+    button:hover {
+        color: #00cc00;
+    }
+
     `;

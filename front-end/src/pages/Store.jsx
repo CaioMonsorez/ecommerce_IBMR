@@ -30,6 +30,7 @@ export const Store = () => {
       setCart([...cart,obj]);
       setItem('carrinhoYt',[...cart,obj])
     }
+    
   };
 
   return (
