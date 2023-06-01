@@ -38,12 +38,12 @@ const NavLink = styled(Link)`
 `;
 
 const Logo = styled(Link)`
-font-family: Arial, sans-serif;
-font-size: 24px;
-padding: 10px;
-background-color: #f5f5f5;
-border-radius: 50%;
-display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  display: inline-block;
 `;
 
 const CartIcon = styled(GiShoppingCart)`
@@ -73,22 +73,52 @@ const SearchIcon = styled(IoSearchOutline)`
   margin-right: 5px;
 `;
 
+
+const CategoryBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #B80F0A;
+  padding: 15px 0;
+  margin-bottom: 50px;
+  gap: 50px;
+`;
+
+const CategoryLink = styled(Link)`
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  margin: 0 30px;
+
+  &:hover {
+    text-decoration: underline;
+    
+  }
+`;
+
 export const Cabecalho = () => {
   return (
-    <HeaderArea>
-      <Logo to="/">Logo</Logo>
-      <SearchBar>
-        <SearchIcon />
-        <SearchInput type="text" placeholder="Buscar produtos" />
-      </SearchBar>
-      <NavLinks>
-        <NavLink to="/profile">
-          <UserIcon /> 
-        </NavLink>
-        <NavLink to="/cart">
-          <CartIcon /> 
-        </NavLink>
-      </NavLinks>
-    </HeaderArea>
+    <>
+      <HeaderArea>
+        <Logo to="/">Logo</Logo>
+        <SearchBar>
+          <SearchIcon />
+          <SearchInput type="text" placeholder="Buscar produtos" />
+        </SearchBar>
+        <NavLinks>
+          <NavLink to="/profile">
+            <UserIcon />
+          </NavLink>
+          <NavLink to="/cart">
+            <CartIcon />
+          </NavLink>
+        </NavLinks>
+      </HeaderArea>
+      <CategoryBar>
+        <CategoryLink to="/categoria1">Eletrodomestico</CategoryLink>
+        <CategoryLink to="/categoria2">Iphone</CategoryLink>
+        <CategoryLink to="/categoria3">Androids</CategoryLink>
+      </CategoryBar>
+    </>
   );
 };

@@ -9,15 +9,12 @@ app.use(cors());
 app.get('/', (req, res) => {
   // Ler o arquivo JSON
   const jsonData = fs.readFileSync('src/produto.json', 'utf8');
-
   // Converter o conteúdo do arquivo em objeto JavaScript
   const data = JSON.parse(jsonData);
-
   // Enviar o objeto como resposta
   res.json(data);
 });
 
-app.use(cors());
 
 app.listen(port, () => {
   console.log(`Servidor Express rodando em http://localhost:${port}`);
