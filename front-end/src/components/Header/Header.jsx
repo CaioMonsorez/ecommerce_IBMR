@@ -10,7 +10,6 @@ const HeaderArea = styled.header`
   align-items: center;
   background-color: #19197d;
   padding: 15px;
-  margin-bottom: 70px;
   gap: 50px;
   justify-content: space-between;
 
@@ -42,7 +41,7 @@ const Logo = styled(Link)`
 font-family: Arial, sans-serif;
 font-size: 24px;
 padding: 10px;
-background-color: white;
+background-color: #f5f5f5;
 border-radius: 50%;
 display: inline-block;
 `;
@@ -50,7 +49,7 @@ display: inline-block;
 const CartIcon = styled(GiShoppingCart)`
   margin-right: 5px;
   font-size: 35px;
-  color: white;
+  color: #f5f5f5;
   &:hover {
     color: grey;
     transition: all 0.5s;
@@ -60,7 +59,7 @@ const CartIcon = styled(GiShoppingCart)`
 const UserIcon = styled(AiOutlineUser)`
   margin-right: 5px;
   font-size: 35px;
-  color: white;
+  color: #f5f5f5;
   &:hover {
     color: grey;
     transition: all 0.5s;
@@ -70,7 +69,7 @@ const UserIcon = styled(AiOutlineUser)`
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: #f5f5f5;
   border-radius: 20px;
   padding: 5px;
 `;
@@ -79,6 +78,7 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
   padding: 5px;
+  background-color: #f5f5f5;
 `;
 
 const SearchIcon = styled(IoSearchOutline)`

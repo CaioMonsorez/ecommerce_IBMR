@@ -8,8 +8,6 @@ export const Content = () => {
     <Switch>
       <Route exact path ='/' component={Store}/>
       <Route exact path= '/cart' component={Cart}/>
-     
-
     </Switch>
 
   )

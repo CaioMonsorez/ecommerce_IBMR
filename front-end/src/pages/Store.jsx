@@ -3,6 +3,8 @@ import { BsFillCartPlusFill, BsFillCartCheckFill } from 'react-icons/bs';
 import { getItem, setItem } from '../services/LocalStorageFuncs';
 import { ProductsArea } from '../css/style';
 import { Cabecalho} from '../components/Header/Header';
+import { AiOutlineHeart } from 'react-icons/ai';
+//import { AiFillHeart } from 'react-icons/ai'; Icone de coração cheio
 
 export const Store = () => {
 
@@ -38,15 +40,12 @@ export const Store = () => {
       <ProductsArea>
         {data.map((item) => (
           <div key={item.id}>
+            <AiOutlineHeart className='coracao'/>
             <h4>{item.title}</h4>
             <img src={item.thumbnail} alt="" />
             <h4>Preço R$: {item.price}</h4>
             <button onClick={() => handleClick(item)}>
-              {cart.some((itemCart) => itemCart.id === item.id) ? (
-                <BsFillCartCheckFill />
-              ) : (
-                <BsFillCartPlusFill />
-              )}
+              {cart.some((itemCart) => itemCart.id === item.id) ? (<BsFillCartCheckFill />) : (<BsFillCartPlusFill />)}
             </button>
           </div>
         ))}
