@@ -2,27 +2,32 @@ import  styled from 'styled-components';
 
 export const ProductsArea =styled.div`
 
+    background-color: #f5f5f5;
     display: flex;
     gap:50px;
+    padding: 0px 20px 10px 20px;
     flex-wrap:wrap;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-around;
 
     div {
+        margin-top: 40px;
         height:320px;
-        width:220px;
+        width:240px;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
         align-items: center;
         padding:20px;
-        border: 1px solid gray;
+        border: 1px inset rgb(25, 25, 125);
+        border-radius: 30px;
+        background-color: white;
     }
+    
     button{
-        font-size:30px;
+        font-size:35px;
         background:transparent;
         border:none;
-        color: #B80F0A;
+        color: #19197d;
         transition: all 0.5s;
         cursor: pointer;
     }
@@ -31,4 +36,16 @@ export const ProductsArea =styled.div`
         color: #00cc00;
     }
 
+    .coracao {
+        font-size:35px;
+        background:transparent;
+        border:none;
+        color: #19197d;
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+
+    .coracao:hover {
+        color: #00cc00;
+    }
     `;

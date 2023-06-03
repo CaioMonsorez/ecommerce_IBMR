@@ -8,20 +8,20 @@ import styled from "styled-components";
 const HeaderArea = styled.header`
   display: flex;
   align-items: center;
-  background-color: #B80F0A;
+  background-color: #19197d;
   padding: 15px;
-  margin-bottom: 70px;
   gap: 50px;
   justify-content: space-between;
 
   a {
     text-decoration: none;
-    color: white;
+    color: #19197d;
     transition: color 0.3s ease-in-out;
 
     &:hover {
-      color: #ffffff80;
+      color: grey;
       text-decoration: underline;
+      transition: all 0.5s;
     }
   }
 `;
@@ -48,16 +48,28 @@ const Logo = styled(Link)`
 
 const CartIcon = styled(GiShoppingCart)`
   margin-right: 5px;
+  font-size: 35px;
+  color: #f5f5f5;
+  &:hover {
+    color: grey;
+    transition: all 0.5s;
+  }
 `;
 
 const UserIcon = styled(AiOutlineUser)`
   margin-right: 5px;
+  font-size: 35px;
+  color: #f5f5f5;
+  &:hover {
+    color: grey;
+    transition: all 0.5s;
+  }
 `;
 
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: #f5f5f5;
   border-radius: 20px;
   padding: 5px;
 `;
@@ -66,11 +78,13 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
   padding: 5px;
+  background-color: #f5f5f5;
 `;
 
 const SearchIcon = styled(IoSearchOutline)`
-  color: #B80F0A;
+  color: #19197d;
   margin-right: 5px;
+  font-size: 25px;
 `;
 
 
