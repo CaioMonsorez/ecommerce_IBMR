@@ -39,14 +39,16 @@ export const Store = () => {
      <Cabecalho/>
       <ProductsArea>
         {data.map((item) => (
-          <div key={item.id}>
-            <AiOutlineHeart className='coracao'/>
+          <div className='card' key={item.id}>
             <h4>{item.title}</h4>
             <img src={item.thumbnail} alt="" />
             <h4>Preço R$: {item.price}</h4>
+            <div className='buttons'>
             <button onClick={() => handleClick(item)}>
               {cart.some((itemCart) => itemCart.id === item.id) ? (<BsFillCartCheckFill />) : (<BsFillCartPlusFill />)}
             </button>
+            <button><AiOutlineHeart className='coracao'/></button>
+            </div>
           </div>
         ))}
       </ProductsArea>

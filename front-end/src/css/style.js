@@ -9,7 +9,7 @@ export const ProductsArea =styled.div`
     flex-wrap:wrap;
     justify-content: space-around;
 
-    div {
+    .card {
         margin-top: 40px;
         height:320px;
         width:240px;
@@ -47,5 +47,10 @@ export const ProductsArea =styled.div`
 
     .coracao:hover {
         color: #00cc00;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 40px;
     }
     `;
