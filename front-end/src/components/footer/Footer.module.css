@@ -1,0 +1,8 @@
+footer {
+  display: flex;
+  justify-content: center;
+  min-height: 18px;
+  background-color: #19197d;
+  font-size: 15px;
+  color: white;
+}

@@ -4,12 +4,12 @@ export const ProductsArea =styled.div`
 
     background-color: #f5f5f5;
     display: flex;
-    gap:50px;
-    padding: 0px 20px 10px 20px;
+    gap:30px;
+    padding: 20px 20px 40px 20px;
     flex-wrap:wrap;
     justify-content: space-around;
 
-    div {
+    .card {
         margin-top: 40px;
         height:320px;
         width:240px;
@@ -47,5 +47,10 @@ export const ProductsArea =styled.div`
 
     .coracao:hover {
         color: #00cc00;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 40px;
     }
     `;
