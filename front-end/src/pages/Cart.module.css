@@ -1,0 +1,18 @@
+h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.carrinhoFundo {
+  background-color: white;
+  min-height: 72vh;
+}
+
+.carrinhoProdutos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

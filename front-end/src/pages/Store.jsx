@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BsFillCartPlusFill, BsFillCartCheckFill } from 'react-icons/bs';
 import { getItem, setItem } from '../services/LocalStorageFuncs';
 import { ProductsArea } from '../css/style';
-import { Cabecalho} from '../components/Header/Header';
+import { Cabecalho} from '../components/header/Header';
 import { AiOutlineHeart } from 'react-icons/ai';
 //import { AiFillHeart } from 'react-icons/ai'; Icone de coração cheio
 
