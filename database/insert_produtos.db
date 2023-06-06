@@ -1,0 +1,29 @@
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 1', 'Descrição do Produto 1', 19.99, 50, 'Categoria 1', 'url_da_foto_1.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 2', 'Descrição do Produto 2', 29.99, 30, 'Categoria 2', 'url_da_foto_2.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 3', 'Descrição do Produto 3', 9.99, 20, 'Categoria 1', 'url_da_foto_3.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 4', 'Descrição do Produto 4', 39.99, 10, 'Categoria 3', 'url_da_foto_4.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 5', 'Descrição do Produto 5', 49.99, 5, 'Categoria 2', 'url_da_foto_5.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 6', 'Descrição do Produto 6', 59.99, 15, 'Categoria 1', 'url_da_foto_6.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 7', 'Descrição do Produto 7', 79.99, 8, 'Categoria 3', 'url_da_foto_7.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 8', 'Descrição do Produto 8', 99.99, 12, 'Categoria 2', 'url_da_foto_8.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 9', 'Descrição do Produto 9', 69.99, 25, 'Categoria 1', 'url_da_foto_9.jpg');
+
+INSERT INTO produtos (name, description, price, stock, category, photo_url)
+VALUES ('Produto 10', 'Descrição do Produto 10', 89.99, 18, 'Categoria 3', 'url_da_foto_10.jpg');

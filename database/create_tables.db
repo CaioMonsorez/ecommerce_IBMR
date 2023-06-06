@@ -1,0 +1,50 @@
+-- Tabela de Usuários
+CREATE TABLE Usuarios (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(100) NOT NULL,
+  address VARCHAR(255),
+  phone VARCHAR(20),
+  registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabela de Produtos
+CREATE TABLE Produtos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  description TEXT,
+  price DECIMAL(10, 2) NOT NULL,
+  stock INT NOT NULL,
+  category VARCHAR(50)
+);
+
+-- Tabela de Pedidos
+CREATE TABLE Pedidos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status VARCHAR(20),
+  shipping_info VARCHAR(255),
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+-- Tabela de Itens do Pedido
+CREATE TABLE Detalhes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+  quantity INT NOT NULL,
+  unit_price DECIMAL(10, 2) NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES Orders(id),
+  FOREIGN KEY (product_id) REFERENCES Products(id)
+);
+
+-- Tabela de Favoritos
+CREATE TABLE Favoritos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  product_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES Users(id),
+  FOREIGN KEY (product_id) REFERENCES Products(id)
+);
