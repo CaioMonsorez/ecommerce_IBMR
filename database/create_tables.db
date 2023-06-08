@@ -15,9 +15,30 @@ CREATE TABLE Produtos (
   name VARCHAR(100) NOT NULL,
   description TEXT,
   price DECIMAL(10, 2) NOT NULL,
+  thumbnail VARCHAR(255) NULL
   stock INT NOT NULL,
   category VARCHAR(50)
 );
+
+CREATE TABLE Carrinho (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  usuario_id INT NOT NULL,
+  produto_id VARCHAR(50) NOT NULL,
+  quantidade INT NOT NULL,
+  data_adicao DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (usuario_id) REFERENCES Usuarios(id),
+  FOREIGN KEY (produto_id) REFERENCES Produtos(id)
+);
+
+-- Tabela de Favoritos
+CREATE TABLE Favoritos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  product_id VARCHAR(50),
+  FOREIGN KEY (user_id) REFERENCES Usuarios(id),
+  FOREIGN KEY (product_id) REFERENCES Produtos(id)
+);
+
 
 -- Tabela de Pedidos
 CREATE TABLE Pedidos (
@@ -28,6 +49,7 @@ CREATE TABLE Pedidos (
   shipping_info VARCHAR(255),
   FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
 
 -- Tabela de Itens do Pedido
 CREATE TABLE Detalhes (
@@ -40,11 +62,4 @@ CREATE TABLE Detalhes (
   FOREIGN KEY (product_id) REFERENCES Products(id)
 );
 
--- Tabela de Favoritos
-CREATE TABLE Favoritos (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  user_id INT NOT NULL,
-  product_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES Users(id),
-  FOREIGN KEY (product_id) REFERENCES Products(id)
-);
+
