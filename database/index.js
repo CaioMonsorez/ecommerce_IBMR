@@ -113,6 +113,18 @@ app.post('/addFavoritos', async (req, res) => {
  }
 });
 
+app.delete('/deletarFavoritos/:id', (req, res) => {
+  const id = req.params.id;
+  pool.query('DELETE FROM Favoritos WHERE id = ?', [id], (err, res) => {
+    if (err) {
+      console.error('Erro ao excluir o produto do Favoritos:', err);
+      res.status(500).json({ error: 'Erro ao excluir o produto do Favoritos' });
+    } else {
+      res.json({ message: 'Produto excluído do Favoritos com sucesso' });
+    }
+  });
+});
+
 
 
 // Inicie o servidor e escute a porta definida
