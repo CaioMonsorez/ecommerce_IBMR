@@ -1,12 +1,11 @@
 const express = require('express');
-const mysql = require('mysql2');
-const bcrypt = require('bcrypt');
-const { body, validationResult } = require('express-validator');
+const mysql = require('mysql2/promise');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 8010; // Defina a porta desejada
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
   host: 'localhost',
   port: 3306,
   user: 'root',
@@ -14,134 +13,110 @@ const connection = mysql.createConnection({
   database: 'ecommerce',
 });
 
-// Conecte-se ao banco de dados usando a conexão configurada:
-connection.connect((err) => {
-  if (err) {
-    console.error('Erro ao conectar ao banco de dados:', err);
-  } else {
-    console.log('Conexão bem-sucedida com o banco de dados');
-  }
-});
 
-// Defina as rotas e as operações que deseja realizar no banco de dados.
-app.get('/', (req, res) => {
-  connection.query('SELECT * FROM produtos', (err, results) => {
-    if (err) {
-      console.error('Erro ao buscar os produtos:', err);
-      res.status(500).json({ error: 'Erro ao buscar os produtos' });
-    } else {
-      res.json(results);
-    }
-  });
-});
+app.use(bodyParser.json());
+
+// Conecte-se ao banco de dados usando a conexão configurada:
+
+(async () => {
+  try {
+    const connection = await pool.getConnection();
+    console.log('Conexão bem-sucedida com o banco de dados');
+  } catch (err) {
+    console.error('Erro ao conectar ao banco de dados:', err);
+  }
+})();
+
 
 // Endpoint para listar os produtos disponíveis
-app.get('/listaProdutos',(req,res) => {
-  connection.query('SELECT * FROM Produtos LIMIT 10', (err, results) => {
-    if (err) { 
-      res.status(404)
-      console.log(err)
-    };
-    res.json(results)
-  });
+app.get('/listaProdutos', async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM Produtos LIMIT 10');
+    res.json(rows);
+  } catch (error) {
+    console.error('Erro ao buscar os produtos:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
 });
 // Endpoint para detalhar um produto específico
-app.get('/detalharProdutos/:id', (req, res) => {
+app.get('/detalharProdutos/:id', async (req, res) => {
   const id = req.params.id;
-  connection.query('SELECT * FROM Produtos WHERE id = ?', [id], (err, results) => {
-    if (err) {
-      console.error('Erro ao buscar o produto:', err);
-      res.status(404).json({ error: 'Erro ao buscar o produto' });
-    } else if (results.length === 0) {
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM Produtos WHERE id = ?', [id]);
+    if (rows.length === 0) {
       res.status(404).json({ error: 'Produto não encontrado' });
     } else {
-      res.json(results[0]);
+      res.json(rows[0]);
     }
-  });
+  } catch (error) {
+    console.error('Erro ao buscar o produto:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
 });
 // Endpoint para cadastrar um novo usuário
-app.post('/cadastrarUsuarios', [
-  // Validação dos campos de entrada usando o express-validator
-  body('name').notEmpty().withMessage('O campo "name" é obrigatório'),
-  body('email').isEmail().withMessage('Informe um email válido'),
-  body('password').isLength({ min: 6 }).withMessage('A senha deve ter no mínimo 6 caracteres')
-], async (req, res) => {
-  // Verifique se há erros de validação nos campos de entrada
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+app.post('/cadastrarUsuarios', async (req, res) => {
   const { name, email, password } = req.body;
-
-  try {
-    // Verifique se o usuário já está cadastrado com o mesmo email
-    const existingUser = await connection.query('SELECT * FROM Usuarios WHERE email = ?', [email]);
-
-    if (existingUser.length > 0) {
-      return res.status(409).json({ error: 'Este email já está sendo usado por outro usuário' });
-    }
-
-    // Gere um salt aleatório para usar na criptografia da senha
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-
-    // Criptografe a senha fornecida antes de armazená-la no banco de dados
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    // Insira o novo usuário na tabela Usuarios
-    await connection.query('INSERT INTO Usuarios (name, email, password) VALUES (?, ?, ?)', [name, email, hashedPassword]);
-
+  try {    
+    const [rows, fields] = await pool.query('INSERT INTO Usuarios (name, email, password) VALUES (?, ?, ?)', [name, email, password]);
     return res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
   } catch (error) {
     console.error('Erro ao cadastrar usuário:', error);
     return res.status(500).json({ error: 'Erro interno do servidor' });
   }
 });
-// Endpoint para atualizar um produto específico no carrinho
-app.put('/atualizarCarrinho/:id', (req, res) => {
-  const id = req.params.id;
-  const updatedProduct = req.body; // Dados atualizados do produto enviado no corpo da requisição
-  connection.query('UPDATE Carrinho SET ? WHERE id = ?', [updatedProduct, id], (err, results) => {
-    if (err) {
-      console.error('Erro ao atualizar o produto no carrinho:', err);
-      res.status(500).json({ error: 'Erro ao atualizar o produto no carrinho' });
-    } else {
-      res.json({ message: 'Produto atualizado no carrinho com sucesso' });
-    }
-  })
+// Endpoint para adicionar um produto no carrinho
+app.post('/addCarrinho', async (req, res) => {
+  const { userId, idProduto, qtd } = req.body;
+  try {
+   // Inserir o produto no carrinho do usuário
+   await pool.query('INSERT INTO Carrinho (usuario_id, produto_id, quantidade, data_adicao) VALUES (?, ?, ?, now())', [userId, idProduto, qtd]);
+
+   res.json({ message: 'Produto adicionado ao carrinho com sucesso' });
+ } catch (error) {
+   console.error('Erro ao adicionar o produto ao carrinho:', error);
+   res.status(500).json({ error: 'Erro interno do servidor' });
+ }
 });
 // Endpoint para listar os produtos no carrinho
-app.get('/listaCarrinho',(req,res) => {
-  const id = req.params.id
-  connection.query('SELECT * FROM Carrinho', (err, results) => {
-    if (err) { 
-      res.status(404)
-      console.log(err)
-    };
-    res.json(results)
-  });
+app.get('/listarCarrinho', async (req, res) => {
+  try {
+    const [rows, fields] = await pool.query('SELECT * FROM Carrinho LIMIT 10');
+    res.json(rows);
+  } catch (error) {
+    console.error('Erro ao buscar os produtos:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
 });
-// Endpoint para adicionar um produto no carrinho
-app.post('/addCarrinho', (req, res) => {
-  const idProduto = req.body.idProduto; // Supondo que o ID do produto esteja no corpo da requisição com o nome "idProduto"
-  // Verificar se o produto existe na tabela Produtos antes de adicioná-lo ao carrinho
-  const selectQuery = 'SELECT id FROM Produtos WHERE id = ?';
-  connection.query(selectQuery, [idProduto], (err, results) => {
+// Endpoint para atualizar um produto específico no carrinho
+app.delete('/deletarCarrinho/:id', (req, res) => {
+  const id = req.params.id;
+  pool.query('DELETE FROM Carrinho WHERE id = ?', [id], (err, res) => {
     if (err) {
-      console.error('Erro ao verificar o produto:', err);
-      res.status(500).json({ error: 'Erro ao verificar o produto' });
-      return;
-    }
-    if (results.length === 0) {
-      res.status(404).json({ error: 'Produto não encontrado' });
-      return;
+      console.error('Erro ao excluir o produto do carrinho:', err);
+      res.status(500).json({ error: 'Erro ao excluir o produto do carrinho' });
+    } else {
+      res.json({ message: 'Produto excluído do carrinho com sucesso' });
     }
   });
 });
+
+app.post('/addFavoritos', async (req, res) => {
+  const { userId, idProduto} = req.body;
+  try {
+   // Inserir o produto no carrinho do usuário
+   await pool.query('INSERT INTO Favoritos (usuario_id, produto_id) VALUES (?, ?)', [userId, idProduto]);
+
+   res.json({ message: 'Produto adicionado ao favoritos com sucesso' });
+ } catch (error) {
+   console.error('Erro ao adicionar o produto ao favoritos:', error);
+   res.status(500).json({ error: 'Erro interno do servidor' });
+ }
+});
+
+
+
 // Inicie o servidor e escute a porta definida
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
 
-module.exports = connection;
