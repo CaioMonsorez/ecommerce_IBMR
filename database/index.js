@@ -116,7 +116,7 @@ app.delete('/deletarFavoritos/:id', async (req, res) => {
   try {
     const result = await pool.query('DELETE FROM Favoritos WHERE id = ?', [id]);
     console.log(result)
-    if (result.affectedRows === 0) {
+    if (result[0].affectedRows === 0) {
       res.status(404).json({ error: 'Produto não encontrado na lista de Favoritos' });
     } else {
       res.json({ message: 'Produto excluído do Favoritos com sucesso' });
