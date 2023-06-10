@@ -1,9 +1,9 @@
 import React from "react";
 import { GiShoppingCart } from 'react-icons/gi';
-import { AiOutlineUser } from 'react-icons/ai';
 import { IoSearchOutline } from 'react-icons/io5';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import UserOptions from "./UserOptions";
 
 const HeaderArea = styled.header`
   display: flex;
@@ -47,16 +47,6 @@ const Logo = styled(Link)`
 `;
 
 const CartIcon = styled(GiShoppingCart)`
-  margin-right: 5px;
-  font-size: 35px;
-  color: #f5f5f5;
-  &:hover {
-    color: grey;
-    transition: all 0.5s;
-  }
-`;
-
-const UserIcon = styled(AiOutlineUser)`
   margin-right: 5px;
   font-size: 35px;
   color: #f5f5f5;
@@ -120,9 +110,7 @@ export const Cabecalho = () => {
           <SearchInput type="text" placeholder="Buscar produtos" />
         </SearchBar>
         <NavLinks>
-          <NavLink to="/profile">
-            <UserIcon />
-          </NavLink>
+          <UserOptions />
           <NavLink to="/cart">
             <CartIcon />
           </NavLink>
