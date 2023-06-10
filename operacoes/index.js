@@ -16,7 +16,6 @@ fs.readFile(filePath, 'utf8', (err, data) => {
 
     // Mapeia apenas os campos desejados dos objetos em results
     const mappedResults = results.slice(0, 10).map(item => ({
-      id: item.id,
       title: item.title,
       thumbnail: item.thumbnail,
       price: item.price,
@@ -45,8 +44,8 @@ fs.readFile(filePath, 'utf8', (err, data) => {
 
       // Inserir os elementos na tabela
       const insertPromises = mappedResults.map(element => {
-        const query = 'INSERT INTO Produtos (id, name, thumbnail, price, stock, category) VALUES (?, ?, ?, ?, ?, ?)';
-        const values = [element.id, element.title, element.thumbnail, element.price, element.sold_quantity, 'Celular'];
+        const query = 'INSERT INTO Produtos (name, thumbnail, price, stock, category) VALUES (?, ?, ?, ?, ?)';
+        const values = [element.title, element.thumbnail, element.price, element.sold_quantity, 'Celular'];
 
         return new Promise((resolve, reject) => {
           connection.query(query, values, (err, results) => {

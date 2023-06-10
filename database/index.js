@@ -88,15 +88,13 @@ app.get('/listarCarrinho', async (req, res) => {
   }
 });
 // Endpoint para atualizar um produto específico no carrinho
-app.delete('/deletarCarrinho/:id', (req, res) => {
+app.delete('/deletarCarrinho/:id', async (req, res) => {
   const id = req.params.id;
-  pool.query('DELETE FROM Carrinho WHERE id = ?', [id], (err, res) => {
+  await pool.query('DELETE FROM Carrinho WHERE id = ?', [id], (err, res) => {
     if (err) {
       console.error('Erro ao excluir o produto do carrinho:', err);
       res.status(500).json({ error: 'Erro ao excluir o produto do carrinho' });
-    } else {
-      res.json({ message: 'Produto excluído do carrinho com sucesso' });
-    }
+    } res.json({ message: 'Produto excluído do carrinho com sucesso' });
   });
 });
 
@@ -113,16 +111,20 @@ app.post('/addFavoritos', async (req, res) => {
  }
 });
 
-app.delete('/deletarFavoritos/:id', (req, res) => {
+app.delete('/deletarFavoritos/:id', async (req, res) => {
   const id = req.params.id;
-  pool.query('DELETE FROM Favoritos WHERE id = ?', [id], (err, res) => {
-    if (err) {
-      console.error('Erro ao excluir o produto do Favoritos:', err);
-      res.status(500).json({ error: 'Erro ao excluir o produto do Favoritos' });
+  try {
+    const result = await pool.query('DELETE FROM Favoritos WHERE id = ?', [id]);
+    console.log(result)
+    if (result.affectedRows === 0) {
+      res.status(404).json({ error: 'Produto não encontrado na lista de Favoritos' });
     } else {
       res.json({ message: 'Produto excluído do Favoritos com sucesso' });
     }
-  });
+  } catch (error) {
+    console.error('Erro ao excluir o produto do Favoritos:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
 });
 
 
