@@ -3,21 +3,21 @@ import { BsFillCartPlusFill, BsFillCartCheckFill } from 'react-icons/bs';
 import { getItem, setItem } from '../services/LocalStorageFuncs';
 import { ProductsArea } from '../css/style';
 import { Cabecalho} from '../components/Header/Header';
-import { AiOutlineHeart } from 'react-icons/ai';
-//import { AiFillHeart } from 'react-icons/ai'; Icone de coração cheio
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 export const Store = () => {
 
   const [data, setData] = useState([]);
   const [cart, setCart] =  useState(getItem('carrinhoYt') || []);
-
+  const [favorites, setFavorites] = useState(getItem('favoritosYt') || []);
+  
   useEffect(() => {
-  const fetchApi = async () => {
+    const fetchApi = async () => {
     const url = 'http://localhost:3030';
     const response = await fetch(url);
     const objJson = await response.json();
     setData(objJson.results)
-  } 
+    } 
     fetchApi();
   }, []);
 
@@ -31,7 +31,18 @@ export const Store = () => {
       setCart([...cart,obj]);
       setItem('carrinhoYt',[...cart,obj])
     }
+  };
 
+  const clickFavorite = (obj) => {
+    const element = favorites.find((e) => e.id === obj.id);
+    if (element) {
+      const arrFilter = favorites.filter((e) => e.id !== obj.id);
+      setFavorites(arrFilter);
+      setItem('favoritosYt', arrFilter);
+    } else {
+      setFavorites([...favorites, obj]);
+      setItem('favoritosYt', [...favorites, obj]);
+    }
   };
 
   return (
@@ -47,7 +58,14 @@ export const Store = () => {
             <button onClick={() => handleClick(item)}>
               {cart.some((itemCart) => itemCart.id === item.id) ? (<BsFillCartCheckFill />) : (<BsFillCartPlusFill />)}
             </button>
-            <button><AiOutlineHeart className='coracao'/></button>
+            <button onClick={() => clickFavorite(item)}>
+                {favorites.some((itemFavorite) => itemFavorite.id === item.id) ? (
+                <AiFillHeart className='coracao' />
+                ) : (
+                <AiOutlineHeart className='coracao' />
+                )}
+            </button>
+
             </div>
           </div>
         ))}

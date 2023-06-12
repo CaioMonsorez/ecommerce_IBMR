@@ -46,7 +46,7 @@ export const ProductsArea =styled.div`
     }
 
     .coracao:hover {
-        color: #00cc00;
+        color: #ff0000;
     }
 
     .buttons {
