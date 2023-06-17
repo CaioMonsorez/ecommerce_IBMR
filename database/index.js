@@ -1,8 +1,10 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
-const bodyParser = require('body-parser');
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const app = express();
+app.use(cors());
 const port = 8010; // Defina a porta desejada
 
 const pool = mysql.createPool({
