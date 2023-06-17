@@ -120,7 +120,6 @@ app.post('/addFavoritos', async (req, res) => {
    res.status(500).json({ error: 'Erro interno do servidor' });
  }
 });
-
 app.delete('/deletarFavoritos/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -135,6 +134,15 @@ app.delete('/deletarFavoritos/:id', async (req, res) => {
     console.error('Erro ao excluir o produto do Favoritos:', error);
     res.status(500).json({ error: 'Erro interno do servidor' });
   }
+});
+app.post('/login',(req, res) => {
+  const { email, password } = req.body;
+  // Procure o usuário pelo email
+  const user = users.find(user => user.email === email);
+  if (!user) {
+    return res.status(401).json({ message: 'Usuário não encontrado.' });
+  }
+  return res.json({ message: 'Login bem-sucedido.' });
 });
 
 

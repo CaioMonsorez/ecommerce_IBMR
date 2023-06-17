@@ -50,24 +50,30 @@ const CadastroUsuarios = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Crie um objeto com os dados do formulário
+    // Create an object with the form data
     const userData = {
       name: name,
       email: email,
       password: password,
+      address: address,
+      phone: phone,
+      birthdate: birthdate,
     };
 
-    // Faça uma requisição para o endpoint /cadastrarUsuarios usando a biblioteca de sua escolha (por exemplo, axios)
+    // Make a request to the /cadastrarUsuarios endpoint using the library of your choice (e.g., axios)
     axios
       .post("http://localhost:8010/cadastrarUsuarios", userData)
       .then((response) => {
         alert("Usuário cadastrado com sucesso!");
-        history.push("/"); // Redireciona para a página Home
+        history.push("/"); // Redirect to the Home page
       })
       .catch((error) => {
         alert("Erro ao cadastrar usuário:", error);
@@ -81,7 +87,7 @@ const CadastroUsuarios = () => {
         <FormGroup>
           <Label htmlFor="name">Nome:</Label>
           <Input
-          required
+            required
             type="text"
             id="name"
             value={name}
@@ -91,7 +97,7 @@ const CadastroUsuarios = () => {
         <FormGroup>
           <Label htmlFor="email">Email:</Label>
           <Input
-          required
+            required
             type="email"
             id="email"
             value={email}
@@ -101,11 +107,41 @@ const CadastroUsuarios = () => {
         <FormGroup>
           <Label htmlFor="password">Senha:</Label>
           <Input
-          required
+            required
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="address">Endereço:</Label>
+          <Input
+            required
+            type="text"
+            id="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="phone">Telefone:</Label>
+          <Input
+            required
+            type="text"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="birthdate">Data de Nascimento:</Label>
+          <Input
+            required
+            type="date"
+            id="birthdate"
+            value={birthdate}
+            onChange={(e) => setBirthdate(e.target.value)}
           />
         </FormGroup>
         <Button type="submit">Cadastrar</Button>
