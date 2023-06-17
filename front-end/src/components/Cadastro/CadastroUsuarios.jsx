@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const CadastroUsuariosContainer = styled.div`
@@ -51,8 +52,23 @@ const CadastroUsuarios = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para enviar os dados do formulário para o endpoint /cadastrarUsuarios
-    console.log("Dados do formulário:", name, email, password);
+
+    // Crie um objeto com os dados do formulário
+    const userData = {
+      name: name,
+      email: email,
+      password: password,
+    };
+
+    // Faça uma requisição para o endpoint /cadastrarUsuarios usando a biblioteca de sua escolha (por exemplo, axios)
+    axios
+      .post("http://localhost:8010/cadastrarUsuarios", userData)
+      .then((response) => {
+        console.log("Resposta do servidor:", response.data);
+      })
+      .catch((error) => {
+        console.error("Erro ao cadastrar usuário:", error);
+      });
   };
 
   return (
