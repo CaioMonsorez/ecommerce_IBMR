@@ -38,13 +38,16 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  padding: 10px;
+  padding: 3px 10px; 
+  width: 100px;
+  margin-right: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 `;
+
 
 const CadastroUsuarios = () => {
   const [name, setName] = useState("");
@@ -68,7 +71,7 @@ const CadastroUsuarios = () => {
       birthdate: birthdate,
     };
 
-    // Make a request to the /cadastrarUsuarios endpoint using the library of your choice (e.g., axios)
+    // Make a request to the /cadastrarUsuarios endpoint using Axios
     axios
       .post("http://localhost:8010/cadastrarUsuarios", userData)
       .then((response) => {
@@ -77,6 +80,29 @@ const CadastroUsuarios = () => {
       })
       .catch((error) => {
         alert("Erro ao cadastrar usuário:", error);
+      });
+  };
+
+  const handleEdit = () => {
+    // Create an object with the form data
+    const userData = {
+      name: name,
+      email: email,
+      password: password,
+      address: address,
+      phone: phone,
+      birthdate: birthdate,
+    };
+
+    // Make a request to the /alterarDadosUsuario endpoint using Axios
+    axios
+      .post("http://localhost:8010/alterarDadosUsuario", userData)
+      .then((response) => {
+        alert("Dados do usuário alterados com sucesso!");
+        // Do any additional logic or updates here
+      })
+      .catch((error) => {
+        alert("Erro ao alterar dados do usuário:", error);
       });
   };
 
@@ -145,6 +171,9 @@ const CadastroUsuarios = () => {
           />
         </FormGroup>
         <Button type="submit">Cadastrar</Button>
+        <Button type="button" onClick={handleEdit}>
+          Alterar Usuário
+        </Button>
       </Form>
     </CadastroUsuariosContainer>
   );

@@ -58,7 +58,9 @@ const UserOptions = () => {
       <UserIcon onClick={toggleOptions} />
       {showOptions && (
         <OptionsContainer>
-          <OptionItem onClick={handleProfile}>Perfil</OptionItem>
+          <OptionItem>
+            <Link to ="/login">Login</Link> 
+          </OptionItem>
           <OptionItem>
             <Link to="/cadastro-usuarios">Cadastro</Link>
           </OptionItem>

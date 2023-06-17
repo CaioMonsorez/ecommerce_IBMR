@@ -9,6 +9,8 @@ CREATE TABLE Usuarios (
   birthdate DATE,
   cep VARCHAR(8),
   registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
+  verification_code VARCHAR(100),
+  verification_code_expires_at DATETIME
 );
 
 -- Tabela de Produtos

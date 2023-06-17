@@ -69,6 +69,7 @@ app.post('/cadastrarUsuarios', async (req, res) => {
     return res.status(500).json({ error: 'Erro interno do servidor' });
   }
 });
+
 // Endpoint para adicionar um produto no carrinho
 app.post('/addCarrinho', async (req, res) => {
   const { userId, idProduto, qtd } = req.body;
@@ -145,7 +146,16 @@ app.post('/login',(req, res) => {
   return res.json({ message: 'Login bem-sucedido.' });
 });
 
-
+app.post("/verificarUsuario", (req, res) => {
+  const { email, verificationCode } = req.body;
+  if (verificationCode === "1234") {
+    // Código de verificação válido
+    res.status(200).json({ message: "Código de verificação válido!" });
+  } else {
+    // Código de verificação inválido
+    res.status(401).json({ message: "Código de verificação inválido!" });
+  }
+});
 
 // Inicie o servidor e escute a porta definida
 app.listen(port, () => {
