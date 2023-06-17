@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const CadastroUsuariosContainer = styled.div`
@@ -49,6 +50,7 @@ const CadastroUsuarios = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,10 +66,11 @@ const CadastroUsuarios = () => {
     axios
       .post("http://localhost:8010/cadastrarUsuarios", userData)
       .then((response) => {
-        console.log("Resposta do servidor:", response.data);
+        alert("Usuário cadastrado com sucesso!");
+        history.push("/"); // Redireciona para a página Home
       })
       .catch((error) => {
-        console.error("Erro ao cadastrar usuário:", error);
+        alert("Erro ao cadastrar usuário:", error);
       });
   };
 
@@ -78,6 +81,7 @@ const CadastroUsuarios = () => {
         <FormGroup>
           <Label htmlFor="name">Nome:</Label>
           <Input
+          required
             type="text"
             id="name"
             value={name}
@@ -87,6 +91,7 @@ const CadastroUsuarios = () => {
         <FormGroup>
           <Label htmlFor="email">Email:</Label>
           <Input
+          required
             type="email"
             id="email"
             value={email}
@@ -96,6 +101,7 @@ const CadastroUsuarios = () => {
         <FormGroup>
           <Label htmlFor="password">Senha:</Label>
           <Input
+          required
             type="password"
             id="password"
             value={password}

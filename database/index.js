@@ -58,6 +58,9 @@ app.get('/detalharProdutos/:id', async (req, res) => {
 // Endpoint para cadastrar um novo usuário
 app.post('/cadastrarUsuarios', async (req, res) => {
   const { name, email, password } = req.body;
+  if (!name && !email && !password){
+    res.status(400).json({error: 'Verifique os dados inseridos'})
+  }
   try {    
     const [rows, fields] = await pool.query('INSERT INTO Usuarios (name, email, password) VALUES (?, ?, ?)', [name, email, password]);
     return res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
